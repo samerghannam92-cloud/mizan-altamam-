@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Mizan APK
 
 on:
   push:
@@ -8,18 +8,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+        uses: kivy/buildozer-action@v1
         with:
+          filename: buildozer.spec
           command: buildozer -v android debug
 
-      - name: Upload artifacts
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: mizan-altamam-apk
-          path: ${{ steps.buildozer.outputs.filename }}
+          path: bin/*.apk
           
