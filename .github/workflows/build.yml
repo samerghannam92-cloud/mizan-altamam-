@@ -1,0 +1,25 @@
+name: Build Mizan Al-Tamam APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build with Buildozer
+        uses: kivy/buildozer-action@v1
+        with:
+          filename: buildozer.spec
+          command: buildozer -v android debug
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mizan-altamam-apk
+          path: bin/*.apk
+          
